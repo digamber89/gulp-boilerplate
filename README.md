@@ -5,7 +5,9 @@ Gulp Starter Boilerplate
 2. Requires gulp be installed globally
 
 If you don't know how to that then first thing to do is
-https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md 
+------------------------------------------------------------------------------------------------------------------------------
+1. https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md 
+2. http://omcfarlane.co.uk/install-gulp-js-windows/
 
 Getting Started
 ------------------------------------------------------------------------------------------------------------------------------
