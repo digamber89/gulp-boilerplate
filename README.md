@@ -9,10 +9,10 @@ https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
 
 Getting Started
 ------------------------------------------------------------------------------------------------------------------------------
-1) Now, the package.json file is already pre-configured, you can and should change some of the variables from line 2 - 13.
-2) Do not change the devDependencies unless you know how to change them.
-3) Now to install gulp and its packages 
-4) go to cmd and navigate to the location of the working folder for exmaple if you have placed your folder in C:\xampp\htdocs\test
+1. Now, the package.json file is already pre-configured, you can and should change some of the variables from line 2 - 13.
+2. Do not change the devDependencies unless you know how to change them.
+3. Now to install gulp and its packages 
+4. go to cmd and navigate to the location of the working folder for exmaple if you have placed your folder in C:\xampp\htdocs\test
 go there through your terminal.
-5) type command npm install , the package will now be installed
-6) After that type gulp to get started
+5. type command npm install , the package will now be installed
+6. After that type gulp to get started
