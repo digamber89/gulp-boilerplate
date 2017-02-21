@@ -24,6 +24,7 @@ var uglifycss    	= require('gulp-uglifycss'); // minifies css files
 var concat       	= require('gulp-concat');  //concatenates multiple js files 
 var rename       	= require('gulp-rename'); // Renames files E.g. style.css -> style.min.css
 var plumber 		= require('gulp-plumber');
+var jshint 			= require('gulp-jshint');
 
 
 var stylesSource 			 = './assets/css/*.scss';
@@ -59,22 +60,17 @@ gulp.task('compileStyles', function(){
 
 /*Compile Files in js/vendor intended for vendor scripts example bootstrap, meanmenu, etc*/
 gulp.task('compileVendorJS', function(){
-/*This Needs Replacing, Currently do not like how minification of javascript is disturbing workflow*/
-	 function createErrorHandler(name) {
-	    return function (err) {
-	      console.error('Error from ' + name + ' in compress task', err.toString());
-	    };
-  	 }
-
 	return gulp.src(jsVendorSource)
 		   .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}) )
+		   .pipe( jshint() )
+		   .pipe(jshint.reporter('jshint-stylish'))
 		   .pipe( concat( jsVendorFile + '.js' )  )
 		   .pipe( gulp.dest( jsVendorDestination ) )
 		   .pipe( rename( {
        			basename: jsVendorFile,
        			suffix: '.min'
     	 	}))
-		   .pipe( uglify().on('error', createErrorHandler('uglify')) )
+		   .pipe( uglify() )
 		   .pipe( gulp.dest( jsVendorDestination ) )
 		   .pipe( notify( { message: 'TASK: "compileVendorJS" Completed! 💯', onLast: true } ) );
 });
@@ -82,22 +78,17 @@ gulp.task('compileVendorJS', function(){
 
 /*Compile Files in Custom JS intended for non-vendor scripts*/
 gulp.task('compileCustomJS', function(){
-/*This Needs Replacing, Currently do not like how minification of javascript is disturbing workflow*/
-	 function createErrorHandler(name) {
-	    return function (err) {
-	      console.error('Error from ' + name + ' in compress task', err.toString());
-	    };
-  	 }
-
 	return gulp.src(jsCustomSource)
 		   .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}) )
+		   .pipe( jshint() )
+		   .pipe(jshint.reporter('jshint-stylish'))
 		   .pipe( concat( jsCustomFile  + '.js' )  )
 		   .pipe( gulp.dest( jsCustomDestination ) )
 		   .pipe( rename( {
        			basename: jsCustomFile,
        			suffix: '.min'
     	 	}))
-		   .pipe( uglify().on('error', createErrorHandler('uglify')) )
+		   .pipe( uglify() )
 		   .pipe( gulp.dest( jsCustomDestination ) )
 		   .pipe( notify( { message: 'TASK: "compileCustomJS" Completed! 💯', onLast: true } ) );
 });
