@@ -10,9 +10,6 @@
 
 /*
 To Do List
-	1. Error Handling on Minification
-		Currently if there is error on javascript file it causes script to not compile
-		and also ends process. Maybe Good Idea to use jshint to process this first
 	2. Browser Sync
 		Currently browser sync is very slow. And not useful for use in development.
 		All online blogs says its a good tool but I am not sure right now
@@ -26,9 +23,10 @@ var uglify 			= require('gulp-uglify'); // minifies js files
 var uglifycss    	= require('gulp-uglifycss'); // minifies css files
 var concat       	= require('gulp-concat');  //concatenates multiple js files 
 var rename       	= require('gulp-rename'); // Renames files E.g. style.css -> style.min.css
+var plumber 		= require('gulp-plumber');
 
 
-var stylesSource 			 = './assets/css/style.scss';
+var stylesSource 			 = './assets/css/*.scss';
 var jsVendorSource 			 = './assets/js/vendor/*.js';
 var jsVendorDestination      = './js';
 var jsVendorFile 			 = 'vendor';
@@ -45,8 +43,9 @@ var jsCustomFile	 		 = 'main';
 */
 gulp.task('compileStyles', function(){
 	return gulp.src(stylesSource)
+			.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}) )
 			.pipe(sourcemaps.init())
-			.pipe(sass().on('error',sass.logError))
+			.pipe(sass())
 			.pipe(sourcemaps.write('./maps'))
 			.pipe(gulp.dest('./css'))
 			.pipe(uglifycss({
@@ -68,6 +67,7 @@ gulp.task('compileVendorJS', function(){
   	 }
 
 	return gulp.src(jsVendorSource)
+		   .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}) )
 		   .pipe( concat( jsVendorFile + '.js' )  )
 		   .pipe( gulp.dest( jsVendorDestination ) )
 		   .pipe( rename( {
@@ -90,6 +90,7 @@ gulp.task('compileCustomJS', function(){
   	 }
 
 	return gulp.src(jsCustomSource)
+		   .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}) )
 		   .pipe( concat( jsCustomFile  + '.js' )  )
 		   .pipe( gulp.dest( jsCustomDestination ) )
 		   .pipe( rename( {
