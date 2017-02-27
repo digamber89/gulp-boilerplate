@@ -27,7 +27,7 @@ var plumber 		= require('gulp-plumber');
 var jshint 			= require('gulp-jshint');
 
 
-var stylesSource 			 = './assets/css/*.scss';
+var stylesSource 			 = './assets/css/**/*.scss';
 var jsVendorSource 			 = './assets/js/vendor/*.js';
 var jsVendorDestination      = './js';
 var jsVendorFile 			 = 'vendor';
